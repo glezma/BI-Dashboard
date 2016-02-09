@@ -1,0 +1,322 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "templates/index.html",
+			"settings":
+			{
+				"buffer_size": 709,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "def reporter(excelfile):\n    __author__ = 'Gelezma'\n    import webbrowser\n    import xlrd\n\n    import plotly.plotly as py\n    import plotly.graph_objs as pl\n    import pandas as pd\n    book = xlrd.open_workbook(excelfile)\n    grantitulo = book.sheet_by_index(0).cell(1,2).value\n    memotext = book.sheet_by_index(0).cell(2,2).value\n    pdftext = book.sheet_by_index(0).cell(3,2).value\n\n    html_string = '''\n    <html>\n        <head>\n         <title>'''+grantitulo+'''</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"static/css/bootstrap.min.css\" />\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"static/css/keen-dashboards.css\" />\n  </head>\n<body class=\"application\">\n  <div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n    <div class=\"container-fluid\">\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n        <a class=\"navbar-brand\" href=\"../\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n        <a class=\"navbar-brand\" href=\"./\">Proyeccion ALM &raquo; Analisis de Tesoreria</a>\n      </div>\n      <div class=\"navbar-collapse collapse\">\n        <ul class=\"nav navbar-nav navbar-left\">\n            <li>  '''+pdftext+''' </li>\n            <li class=\"dropdown\">\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Archivos <span class=\"caret\"></span></a>\n                <ul class=\"dropdown-menu\">''' +memotext+ '''\n                </ul>\n            </li>\n\n            <li><a href=\"mailto:glezmaf@bcp.com.pe\">Contacto</a></li>\n            <li><a href=\"https://lezma.herokuapp.com/files\">Optimizador ALM</a></li>\n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n'''\n    xls = pd.ExcelFile(excelfile)\n    for indexsheet in range(1,book.nsheets):\n        print('indexsheet = ' + str(indexsheet))\n        first_sheet = book.sheet_by_index(indexsheet)\n        nrows = int(first_sheet.cell(3, 2).value)\n        ncols = int(first_sheet.cell(4, 2).value)\n        indexopt = int(first_sheet.cell(7, 0).value)\n        incluir_total_footer = int(first_sheet.cell(3, 9).value)\n        type_graph_ind = list()\n        trace_colors = list()\n        for ii in range(1, ncols+1):\n            type_graph_ind.append(int(first_sheet.cell(7, ii).value))\n            trace_colors.append(first_sheet.cell(8, ii).value)\n        titulo = first_sheet.cell(2, 2).value\n        descripcion = first_sheet.cell(5,100).value\n        typeofgraph = int(first_sheet.cell(6, 2).value)\n        if first_sheet.cell(3, 6).value ==\"a\":\n            maxvalue =\"a\"\n            minvalue =\"a\"\n        else:\n            maxvalue = int(first_sheet.cell(3, 6).value)\n            minvalue = int(first_sheet.cell(4, 6).value)\n        if indexopt==0:\n            data = xls.parse(indexsheet, skiprows=9,parse_cols=ncols, na_values=['NA'])\n        else:\n            # index_col=[\"none\"]\n            data = xls.parse(indexsheet, skiprows=9, parse_cols=ncols, na_values=['NA'])\n        print(nrows)\n        df = data[:nrows]\n        print(df.head())\n\n        print('Llamando bibliotecas')\n        #Plot with plotly\n        py.sign_in(\"glezma\", \"0q6w6pozu7\")\n        print('Hecho!!')\n        print('Procesando graficos')\n        listdata = list()\n        for count in range(1,ncols+1):\n            print(type_graph_ind[count-1])\n            print(type_graph_ind)\n            if type_graph_ind[count-1]==0:\n                df.head()\n                plot = pl.Scatter(x=df['Fecha'], y=df.ix[:,count], mode='lines+markers', marker=pl.Marker(size=8), name=df.columns[int(count)])\n                listdata.append(plot)\n                print(count)\n                layout = pl.Layout()\n            elif type_graph_ind[count-1]==1:\n                df.head()\n                print(df['Fecha'])\n                if df.ix[:,count].iloc[-1]>=0:\n                    plot = pl.Bar(x=df['Fecha'], y=df.ix[:,count], name=df.columns[int(count)],yaxis='y1', marker=pl.Marker(\n            color=trace_colors[int(count-1)] )  )\n                else:\n                    plot = pl.Bar(x=df['Fecha'], y=df.ix[:,count], name=df.columns[int(count)],yaxis='y2',marker=pl.Marker(\n            color=trace_colors[int(count-1)] ))\n                listdata.append(plot)\n                print(count)\n            else:\n                plot = pl.Scatter(x=df['Fecha'], y=df.ix[:,count], mode='lines+markers', marker=pl.Marker(size=8, color='rgba(0, 0, 0, 0.95)'), name=df.columns[int(count)],yaxis='y2')\n                listdata.append(plot)\n                print(count)\n                layout = pl.Layout()\n            if minvalue!=\"a\":\n                layout = pl.Layout(barmode='stack',bargap=0.6,yaxis=pl.YAxis(title='yaxis title',range=[minvalue, maxvalue]),\n                                   yaxis2=pl.YAxis(title='yaxis title',side='right',overlaying='y',\n                                                   tickfont=pl.Font(color='rgb(1, 1, 1)'),range=[minvalue, maxvalue]))\n            else:\n                layout = pl.Layout()\n                #layout = pl.Layout(barmode='stack',yaxis=pl.YAxis(title='yaxis title'),yaxis2=pl.YAxis(title='yaxis title',side='right',overlaying='y'))\n        print('Hecho!!')\n        pdata = pl.Data(listdata)\n        fig = pl.Figure(data=pdata, layout=layout)\n        print('Intentando conexion remota...')\n        first_plot_url = py.plot(fig, filename='Repjs_'+ str(indexsheet), auto_open=False)\n        # Plot with mpllib\n\n\n        print('Hecho!!')\n        print('Generando html...')\n        print(first_plot_url)\n        df1=df.set_index('Fecha').T\n\n\n        summary_table_0 = df1 .to_html()    .replace('<table border=\"1\" class=\"dataframe\">', '<table class=\"display\", align = \"center\", style=\"width:100%;\">')  # use bootstrap styling\n        summary_table_0 = summary_table_0    .replace('<tr style=\"text-align: right;\">', '<tr>')  # use bootstrap styling\n        if incluir_total_footer != 0:\n            lastindex = df1.index.values[-1]\n            toreplace = '''<tr>\\n      <th>''' + lastindex\n            toplace = '<tfoot>\\n <tr>\\n      <th>' + lastindex\n            summary_table_0 = summary_table_0    .replace(toreplace, toplace)  # use bootstrap styling\n            toreplace ='</tbody>'\n            toplace ='</tfoot></tbody>'\n            summary_table_0 = summary_table_0    .replace(toreplace, toplace)\n\n#?width=700&height=400\n        html_string =html_string+ '''\n            <div class=\"row\">\n      <div class=\"col-sm-5\">\n        <div class=\"chart-wrapper\">\n          <div class=\"chart-title\">''' + titulo +'''</div>\n          <div class=\"chart-stage\">\n            <div id=\"grid-1-1\">\n              <div>\n            <iframe width=\"100%\" height=\"350\" align =\"middle\" frameborder=\"1\" seamless=\"seamless\" scrolling=\"no\" \\\n            src=\"''' + first_plot_url + '''.embed\"></iframe>\n            </div>\n            </div>\n          </div>\n          <div class=\"chart-notes\"> ''' + descripcion + '''</div>\n        </div>\n      </div>\n      <div class=\"col-sm-7\">\n        <div class=\"chart-wrapper\">\n          <div class=\"chart-title\">'''+ titulo + ''' </div>\n          <div class=\"holi\">\n            ''' + summary_table_0 +'''\n          </div>\n          <div class=\"chart-notes\">'''+descripcion + '''</div>\n        </div>\n      </div>\n    </div>'''\n    html_string = html_string + '''\n              <script type=\"text/javascript\" src=\"static/js/slider/jquery-1.7.2.min.js\"></script>\n  <script type=\"text/javascript\" src=\"static/js/bootstrap/dist/js/bootstrap.min.js\"></script>\n\n  <script type=\"text/javascript\" src=\"static/js/holderjs/holder.js\"></script>\n  <script>\n    Holder.add_theme(\"white\", { background:\"#fff\", foreground:\"#a7a7a7\", size:10 });\n  </script>\n\n  <!-- Slider widget files -->\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"static/css/jquery.dataTables.min.css\">\n  <script type=\"text/javascript\" language=\"javascript\" src=\"static/js/jquery-1.11.3.min.js\"></script>\n  <script type=\"text/javascript\" language=\"javascript\" src=\"static/js/jquery.dataTables.min.js\"></script>\n\n<script type=\"text/javascript\" class=\"init\">\n    $(document).ready(function() {\n      $('table.display').DataTable( {\n        \"paging\":   false,\n        \"ordering\": true,\n        \"info\":     false\n    }  );\n    } );\n</script>\n\n</body>\n</html>\n'''\n    # Finally, write the html string to a local file.\n    htmlfilename = 'report.html'\n    f = open(htmlfilename,'w')\n    f.write(html_string)\n    f.close()\n    print('Archivo html generado con exito!!')\n    webbrowser.open_new_tab(htmlfilename)\n    \ndef reporter_s(excelfile):\n    import os as os\n    __author__ = 'Gelezma'\n    import webbrowser\n    import xlrd\n    #    import plotly.tools as plotly_tools\n    import plotly.plotly as py\n    #import seaborn as sns\n    import plotly.graph_objs as pl\n    import pandas as pd\n    import pylab as pl\n    import matplotlib.pyplot as plt\n    # excelfile='D:\\python\\OPT\\inData.xlsx'\n    book = xlrd.open_workbook(excelfile)\n    grantitulo = book.sheet_by_index(0).cell(1,2).value\n    memotext = book.sheet_by_index(0).cell(2,2).value\n    html_string = '''\n    <html>\n        <head>\n            <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css\">\n            <style>body{ margin:0 100; background:white; }</style>\n        </head>\n        <body>\n            <h1>'''+grantitulo+'''</h1>\n    ''' + memotext\n    xls = pd.ExcelFile(excelfile)\n    for indexsheet in range(1,book.nsheets):\n        print('indexsheet = ' + str(indexsheet))\n        first_sheet = book.sheet_by_index(indexsheet)\n        nrows = int(first_sheet.cell(3, 2).value)\n        ncols = int(first_sheet.cell(4, 2).value)\n        titulo = first_sheet.cell(2, 2).value\n        descripcion = first_sheet.cell(5,1).value\n\n\n        data = xls.parse(indexsheet, skiprows=9, index_col=0, parse_cols=ncols+1, na_values=['NA'])\n        df = data[:nrows]\n        print('Generando graficos ...')\n        df.plot()\n        foldername = 'report_src'\n        if not os.path.exists(foldername):\n            os.mkdir(foldername)\n        name =\"Rep_\"+ str(indexsheet)+'.png'\n        pl.savefig(os.path.join(foldername,name),bbox_inches=\"tight\")\n        first_plot_url = os.path.join(foldername,name)\n        print('Hecho!!')\n        print('Generando html...')\n        print(first_plot_url)\n        df1=df.set_index('Fecha').T\n        summary_table_0 = df1 .to_html()    .replace('<table border=\"1\" class=\"dataframe\">', '<table class=\"table table-striped\">')  # use bootstrap styling\n        #summary_table_1 = df.describe()\n        #summary_table_1 = summary_table_1    .to_html()    .replace('<table border=\"1\" class=\"dataframe\">', '<table class=\"table table-striped\">')  # use bootstrap styling\n        html_string =html_string+ '''\n            <!-- *** Section  *** --->\n            <h2>''' + titulo +'''</h2>\n            <IMG SRC=\"''' + first_plot_url + '''\" width=700 height=400\">\n            <p> ''' + descripcion + '''.</p>\n            <h3>Tabla :'''+ titulo + ''' </h3>\n            ''' + summary_table_0\n    html_string = html_string + '''\n            </body>\n        </html>'''\n    # Finally, write the html string to a local file.\n    htmlfilename = 'report.html'\n    f = open(htmlfilename,'w')\n    f.write(html_string)\n    f.close()\n    print('Archivo html generado con exito!!')\n    webbrowser.open_new_tab(htmlfilename)\n    ",
+			"file": "/F/OneDrive/Spyder/ProyDashboard/reporter.py",
+			"file_size": 11922,
+			"file_write_time": 130898249336624277,
+			"settings":
+			{
+				"buffer_size": 11653,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app.py",
+			"settings":
+			{
+				"buffer_size": 989,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 216.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/3d/upload.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/3d/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/4a/plus1.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/4c/responses.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/6a/login.py",
+		"/F/OneDrive/Spyder/ProyDashboard/mainwindow.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/user.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/base.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/data.sqlite",
+		"/F/OneDrive/Spyder/flask_tut/flasky/hello.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/500.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/404.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/decorators.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/main/views.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/LICENSE",
+		"/F/OneDrive/Spyder/flask_tut/flasky/tests/test_basics.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/.git/HEAD",
+		"/F/OneDrive/Spyder/flask_tut/flasky/.git/index",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/main/__init__.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/__init__.py",
+		"/F/OneDrive/Spyder/flask_tut/main.py",
+		"/F/Dropbox/python/FlaskExcel/Procfile",
+		"/F/OneDrive/experiment/static/css/jquery.dataTables.min.css",
+		"/F/OneDrive/experiment/files.html",
+		"/F/Dropbox/python/FlaskExcel/server.py",
+		"/F/OneDrive/experiment/files_files/jquery.dataTables.min.js",
+		"/F/OneDrive/experiment/files_files/jquery-1.11.3.min.js",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Python Breakpoints/PythonBreakpoints.sublime-settings",
+		"/F/OneDrive/Spyder/th_flask/project/templates/layout.html",
+		"/F/OneDrive/Spyder/th_flask/project/templates/builder.html",
+		"/F/OneDrive/Spyder/ProyDashboard/AT.Report.html",
+		"/F/Dropbox/A.OptimalControlALM/main5.m",
+		"/F/Dropbox/bcp/margen/margen.py",
+		"/F/OneDrive/Spyder/th_flask/project/templates/index.html",
+		"/F/Dropbox/bcp/margen/setup.py",
+		"/F/OneDrive/Spyder/opt_alm/cvxpy-master/examples/flows/graph_data",
+		"/F/Dropbox/A.OptimalControlALM/main.m",
+		"/F/Dropbox/bcp/fibonacci/fibonacci.py",
+		"/C/Users/gonza/AppData/Local/Temp/Temp1_code_ProblemSet6.zip/ps6_encryption.py",
+		"/F/Dropbox/Python.MIT/ProblemSet4/ps4a.py",
+		"/F/Dropbox/python/xlwings/simulation/simulation.py",
+		"/C/Users/gonza/Downloads/desktop.ini"
+	],
+	"find":
+	{
+		"height": 45.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"image",
+			"webbrowser",
+			"summary_table_0",
+			"first_plot_url",
+			"html_string",
+			"session",
+			"static",
+			"td",
+			"javascript",
+			"static",
+			"files_files",
+			"build"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "templates/index.html",
+					"settings":
+					{
+						"buffer_size": 709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								641,
+								641
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/F/OneDrive/Spyder/ProyDashboard/reporter.py",
+					"settings":
+					{
+						"buffer_size": 11653,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app.py",
+					"settings":
+					{
+						"buffer_size": 989,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								185,
+								185
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 131.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 184.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"main",
+				"/F/OneDrive/Spyder/flask_tut/main.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 249.0,
+	"status_bar_visible": true
+}

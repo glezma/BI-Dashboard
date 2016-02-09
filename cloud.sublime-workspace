@@ -1,0 +1,460 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ti",
+				"title_list	statement"
+			],
+			[
+				"fo",
+				"form	Tag"
+			],
+			[
+				"d",
+				"dumps	function"
+			],
+			[
+				"des",
+				"description_list	statement"
+			],
+			[
+				"pl",
+				"plot_list	statement"
+			],
+			[
+				"memo",
+				"memotext	statement"
+			],
+			[
+				"plot",
+				"plot_list"
+			],
+			[
+				"table",
+				"table_list"
+			],
+			[
+				"mem",
+				"memotext	statement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.py",
+			"settings":
+			{
+				"buffer_size": 2185,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/Output.html",
+			"settings":
+			{
+				"buffer_size": 3598,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/index.html",
+			"settings":
+			{
+				"buffer_size": 870,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "functions.py",
+			"settings":
+			{
+				"buffer_size": 5472,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Dropbox/python/FlaskExcel/Procfile",
+			"settings":
+			{
+				"buffer_size": 22,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 216.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/OneDrive/cloud_projects/reqpip",
+		"/F/OneDrive/Spyder/ProyDashboard/reporter.py",
+		"/F/OneDrive/Spyder/Flask_Import_Excel/server.py",
+		"/F/OneDrive/cloud_projects/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/8c/app/templates/base.html",
+		"/F/OneDrive/Spyder/th_flask/project/templates/builder.html",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/8c/app/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/8c/app/templates/login.html",
+		"/F/OneDrive/cloud_projects/functions,py",
+		"/F/OneDrive/Spyder/th_flask/project/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_tut/flasky/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_tut/flasky/templates/base.html",
+		"/F/OneDrive/ITcourses/flask_tut/flasky/hello.py",
+		"/F/OneDrive/Spyder/th_flask/project/options.py",
+		"/F/OneDrive/Spyder/th_flask/project/app.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/8b/run.py",
+		"/F/OneDrive/cloud_projects/functions",
+		"/F/OneDrive/cloud_projects/cloud.sublime-project",
+		"/F/OneDrive/cloud_projects/cloud.sublime-workspace",
+		"/F/OneDrive/cloud_projects/dashboard.sublime-workspace",
+		"/F/OneDrive/cloud_projects/dashboard.sublime-project",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/3d/upload.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/3d/templates/index.html",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/4a/plus1.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/4c/responses.py",
+		"/F/OneDrive/ITcourses/flask_intro/oreilly-intro-to-flask-video/6a/login.py",
+		"/F/OneDrive/Spyder/ProyDashboard/mainwindow.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/user.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/base.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/data.sqlite",
+		"/F/OneDrive/Spyder/flask_tut/flasky/hello.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/500.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/templates/404.html",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/decorators.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/main/views.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/LICENSE",
+		"/F/OneDrive/Spyder/flask_tut/flasky/tests/test_basics.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/.git/HEAD",
+		"/F/OneDrive/Spyder/flask_tut/flasky/.git/index",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/main/__init__.py",
+		"/F/OneDrive/Spyder/flask_tut/flasky/app/__init__.py",
+		"/F/OneDrive/Spyder/flask_tut/main.py",
+		"/F/Dropbox/python/FlaskExcel/Procfile",
+		"/F/OneDrive/experiment/static/css/jquery.dataTables.min.css",
+		"/F/OneDrive/experiment/files.html",
+		"/F/Dropbox/python/FlaskExcel/server.py",
+		"/F/OneDrive/experiment/files_files/jquery.dataTables.min.js",
+		"/F/OneDrive/experiment/files_files/jquery-1.11.3.min.js",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/gonza/AppData/Roaming/Sublime Text 2/Packages/Python Breakpoints/PythonBreakpoints.sublime-settings",
+		"/F/OneDrive/Spyder/th_flask/project/templates/layout.html",
+		"/F/OneDrive/Spyder/ProyDashboard/AT.Report.html",
+		"/F/Dropbox/A.OptimalControlALM/main5.m",
+		"/F/Dropbox/bcp/margen/margen.py",
+		"/F/Dropbox/bcp/margen/setup.py",
+		"/F/OneDrive/Spyder/opt_alm/cvxpy-master/examples/flows/graph_data",
+		"/F/Dropbox/A.OptimalControlALM/main.m",
+		"/F/Dropbox/bcp/fibonacci/fibonacci.py",
+		"/C/Users/gonza/AppData/Local/Temp/Temp1_code_ProblemSet6.zip/ps6_encryption.py",
+		"/F/Dropbox/Python.MIT/ProblemSet4/ps4a.py",
+		"/F/Dropbox/python/xlwings/simulation/simulation.py",
+		"/C/Users/gonza/Downloads/desktop.ini"
+	],
+	"find":
+	{
+		"height": 45.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Markup",
+			"}",
+			"py.si",
+			"reporter",
+			"Form",
+			"file",
+			"url",
+			"first_sheet",
+			"book",
+			"xls",
+			"titulo",
+			"first_plot_url",
+			"summary_table_0",
+			"book",
+			"image",
+			"webbrowser",
+			"summary_table_0",
+			"first_plot_url",
+			"html_string",
+			"session",
+			"static",
+			"td",
+			"javascript",
+			"static",
+			"files_files",
+			"build"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.py",
+					"settings":
+					{
+						"buffer_size": 2185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								452,
+								452
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 44.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "templates/Output.html",
+					"settings":
+					{
+						"buffer_size": 3598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1731,
+								1731
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "templates/index.html",
+					"settings":
+					{
+						"buffer_size": 870,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								752,
+								752
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 299.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "functions.py",
+					"settings":
+					{
+						"buffer_size": 5472,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4506,
+								4506
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1996.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/F/Dropbox/python/FlaskExcel/Procfile",
+					"settings":
+					{
+						"buffer_size": 22,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 184.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"main",
+				"/F/OneDrive/Spyder/flask_tut/main.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 249.0,
+	"status_bar_visible": true
+}
