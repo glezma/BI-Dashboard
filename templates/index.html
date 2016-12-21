@@ -1,12 +1,12 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}File Upload{% endblock %}
+{% block title %}BI Dashboard{% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Upload file</a>
+            <a class="navbar-brand" href="{{ url_for('index') }}">BI Dashboard: Upload file</a>
         </div>    
     </nav>
 {% endblock %}
@@ -23,7 +23,9 @@
                 <form method='POST' name =  >
 
                 </form>
-                <a  href="{{ url_for('process',fullfilename=fullfilename) }}">Upload file</a>
+                <br>
+                <p>The file was uploaded successfully</p>
+                <a  href="{{ url_for('process',fullfilename=fullfilename) }}">Generate Dashboard!</a>
             </div>    
         {% endif %}
     </div>

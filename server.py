@@ -2,6 +2,7 @@ import os
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.wtf import Form
 from wtforms import FileField, SubmitField, ValidationError
+
 from flask import (Flask, render_template, request, 
                     make_response,redirect, url_for, Markup)
 import functions as fns
@@ -11,8 +12,8 @@ app.config['SECRET_KEY'] = 'top secret!'
 bootstrap = Bootstrap(app)
 
 class UploadForm(Form):
-    image_file = FileField('Archivo de datos')
-    submit = SubmitField('Cargar')
+    image_file = FileField('Selected file:')
+    submit = SubmitField('Upload File')
 
     def validate_image_file(self, field):
         if ((field.data.filename[-5:].lower() != '.xlsm') 
